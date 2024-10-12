@@ -422,7 +422,7 @@ impl<'a> Reader<'a> {
 #[cfg(test)]
 pub mod tests {
     use super::*;
-    use crate::string::{SwfStr, WINDOWS_1252};
+    use crate::string::{SwfStr, GBK};
     use crate::test_data;
 
     #[test]
@@ -462,7 +462,7 @@ pub mod tests {
         assert_eq!(
             action,
             Action::DefineFunction(DefineFunction {
-                name: SwfStr::from_str_with_encoding("foo", WINDOWS_1252).unwrap(),
+                name: SwfStr::from_str_with_encoding("foo", GBK).unwrap(),
                 params: vec![],
                 actions: &[0x96, 0x06, 0x00, 0x00, 0x74, 0x65, 0x73, 0x74, 0x00, 0x26],
             })
@@ -475,7 +475,7 @@ pub mod tests {
                 action,
                 Action::Push(Push {
                     values: vec![Value::Str(
-                        SwfStr::from_str_with_encoding("test", WINDOWS_1252).unwrap()
+                        SwfStr::from_str_with_encoding("test", GBK).unwrap()
                     )]
                 })
             );

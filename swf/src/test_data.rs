@@ -5,7 +5,7 @@ use crate::avm2::read::tests::read_abc_from_file;
 use crate::avm2::types::*;
 use crate::read::tests::{read_tag_bytes_from_file, read_tag_bytes_from_file_with_index};
 use crate::read::{decompress_swf, parse_swf};
-use crate::string::{SwfStr, WINDOWS_1252};
+use crate::string::{SwfStr, GBK};
 use crate::tag_code::TagCode;
 use crate::types::*;
 use crate::write::write_swf;
@@ -380,10 +380,10 @@ pub fn tag_tests() -> Vec<TagTestData> {
                         leading: Twips::from_pixels(2.0),
                     }))
                     .with_variable_name(
-                        SwfStr::from_str_with_encoding("foo", WINDOWS_1252).unwrap(),
+                        SwfStr::from_str_with_encoding("foo", GBK).unwrap(),
                     )
                     .with_initial_text(Some(
-                        SwfStr::from_str_with_encoding("-_-", WINDOWS_1252).unwrap(),
+                        SwfStr::from_str_with_encoding("-_-", GBK).unwrap(),
                     ))
                     .with_is_read_only(true)
                     .with_has_border(true)
@@ -639,7 +639,7 @@ pub fn tag_tests() -> Vec<TagTestData> {
             Tag::DefineFontInfo(Box::new(FontInfo {
                 id: 1,
                 version: 1,
-                name: SwfStr::from_str_with_encoding("Verdana", WINDOWS_1252).unwrap(),
+                name: SwfStr::from_str_with_encoding("Verdana", GBK).unwrap(),
                 flags: FontInfoFlag::IS_ANSI,
                 language: Language::Unknown,
                 code_table: vec![45, 95],
@@ -1760,7 +1760,7 @@ pub fn tag_tests() -> Vec<TagTestData> {
         (
             3,
             Tag::FrameLabel(FrameLabel {
-                label: SwfStr::from_str_with_encoding("test", WINDOWS_1252).unwrap(),
+                label: SwfStr::from_str_with_encoding("test", GBK).unwrap(),
                 is_anchor: false,
             }),
             read_tag_bytes_from_file_with_index(
@@ -1842,7 +1842,7 @@ pub fn tag_tests() -> Vec<TagTestData> {
         ),
         (
             1,
-            Tag::Metadata(SwfStr::from_str_with_encoding("aa!", WINDOWS_1252).unwrap()),
+            Tag::Metadata(SwfStr::from_str_with_encoding("aa!", GBK).unwrap()),
             vec![0b01_000100, 0b000_10011, b'a', b'a', b'!', 0],
         ),
         (
@@ -2146,7 +2146,7 @@ pub fn tag_tests() -> Vec<TagTestData> {
         (
             5, // Password supported in SWF version 5 or later.
             Tag::Protect(Some(
-                SwfStr::from_str_with_encoding("$1$d/$yMscKH17OJ0paJT.e67iz0", WINDOWS_1252)
+                SwfStr::from_str_with_encoding("$1$d/$yMscKH17OJ0paJT.e67iz0", GBK)
                     .unwrap(),
             )),
             read_tag_bytes_from_file("tests/swfs/Protect.swf", TagCode::Protect),
@@ -2413,8 +2413,8 @@ pub fn avm1_tests() -> Vec<Avm1TestData> {
         (
             3,
             Action::GetUrl(GetUrl {
-                url: SwfStr::from_str_with_encoding("a", WINDOWS_1252).unwrap(),
-                target: SwfStr::from_str_with_encoding("b", WINDOWS_1252).unwrap(),
+                url: SwfStr::from_str_with_encoding("a", GBK).unwrap(),
+                target: SwfStr::from_str_with_encoding("b", GBK).unwrap(),
             }),
             vec![0x83, 4, 0, 97, 0, 98, 0],
         ),
@@ -2453,7 +2453,7 @@ pub fn avm1_tests() -> Vec<Avm1TestData> {
         (
             3,
             Action::GotoLabel(GotoLabel {
-                label: SwfStr::from_str_with_encoding("testb", WINDOWS_1252).unwrap(),
+                label: SwfStr::from_str_with_encoding("testb", GBK).unwrap(),
             }),
             vec![0x8C, 6, 0, 116, 101, 115, 116, 98, 0],
         ),
@@ -2476,7 +2476,7 @@ pub fn avm1_tests() -> Vec<Avm1TestData> {
             4,
             Action::Push(Push {
                 values: vec![Value::Str(
-                    SwfStr::from_str_with_encoding("test", WINDOWS_1252).unwrap(),
+                    SwfStr::from_str_with_encoding("test", GBK).unwrap(),
                 )],
             }),
             vec![0x96, 6, 0, 0, 116, 101, 115, 116, 0],
@@ -2576,7 +2576,7 @@ pub fn avm1_tests() -> Vec<Avm1TestData> {
         (
             3,
             Action::SetTarget(SetTarget {
-                target: SwfStr::from_str_with_encoding("test", WINDOWS_1252).unwrap(),
+                target: SwfStr::from_str_with_encoding("test", GBK).unwrap(),
             }),
             vec![0x8B, 5, 0, 116, 101, 115, 116, 0],
         ),
@@ -2626,10 +2626,10 @@ pub fn avm1_tests() -> Vec<Avm1TestData> {
         (
             5,
             Action::DefineFunction(DefineFunction {
-                name: SwfStr::from_str_with_encoding("cliche", WINDOWS_1252).unwrap(),
+                name: SwfStr::from_str_with_encoding("cliche", GBK).unwrap(),
                 params: vec![
-                    SwfStr::from_str_with_encoding("greeting", WINDOWS_1252).unwrap(),
-                    SwfStr::from_str_with_encoding("name", WINDOWS_1252).unwrap(),
+                    SwfStr::from_str_with_encoding("greeting", GBK).unwrap(),
+                    SwfStr::from_str_with_encoding("name", GBK).unwrap(),
                 ],
                 actions: &[
                     0x96, 0x0a, 0x00, 0x00, 0x67, 0x72, 0x65, 0x65, 0x74, 0x69, 0x6e, 0x67, 0x00,
