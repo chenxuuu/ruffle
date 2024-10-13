@@ -48,5 +48,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ruffle-wasm
-          path: web/packages/core/dist/*
+          path: web/packages/*
           if-no-files-found: error
